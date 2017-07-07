@@ -2,6 +2,7 @@
 // where your node app starts
 
 // init project
+var useragent = require('useragent');
 var express = require('express');
 var app = express();
 
@@ -23,7 +24,10 @@ app.get("/dreams", function (request, response) {
 app.get("/header", function(req, res){
   var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
   var lang =  req.headers["accept-language"];
-  res.json({IP: ip.split(",")[0], language: lang.split(",")[0]});
+  var agent = useragent.parse(req.headers['user-agent']);
+  agent.os.toString();
+  var oper = agent.os.toString() +"; " +agent.device.toString();
+  res.json({IP: ip.split(",")[0], language: lang.split(",")[0], software: oper});
         });
 
 // could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
