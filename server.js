@@ -24,9 +24,9 @@ app.get("/dreams", function (request, response) {
 app.get("/header", function(req, res){
   var ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
   var lang =  req.headers["accept-language"];
-  var agent = useragent.parse(req.headers['user-agent']);
-  agent.os.toString();
-  var oper = agent.os.toString() +"; " +agent.device.toString();
+  // var agent = useragent.parse(req.headers['user-agent']);
+  // agent.os.toString();
+  var oper = req.headers['user-agent'].split(') ')[0].split(' (')[1];
   res.json({IP: ip.split(",")[0], language: lang.split(",")[0], software: oper});
         });
 
